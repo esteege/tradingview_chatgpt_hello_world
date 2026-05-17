@@ -56,12 +56,30 @@ async def tradingview_webhook(request: Request) -> Dict[str, Any]:
 
     prompt = build_prompt(alert)
 
-    response = client.responses.create(
-        model=OPENAI_MODEL,
-        input=prompt,
+    response = client.chat.completions.create(
+        model="gpt-4.1-mini",
+        messages=[
+            {
+                "role": "system",
+                "content": "You are a trading assistant."
+            },
+            {
+                "role": "user",
+                "content": f"""
+    TradingView Alert
+    
+    Symbol: {payload.symbol}
+    Signal: {payload.signal}
+    Price: {payload.price}
+    Timeframe: {payload.timeframe}
+    Score: {payload.score}
+    Comment: {payload.comment}
+    """
+            }
+        ]
     )
-
-    ai_text = response.output_text
+    
+    ai_text = response.choices[0].message.content
 
     log_record = {
         "received_at": datetime.now(timezone.utc).isoformat(),
