@@ -67,13 +67,15 @@ async def tradingview_webhook(request: Request) -> Dict[str, Any]:
                 "role": "user",
                 "content": f"""
     TradingView Alert
-    
-    Symbol: {payload.symbol}
-    Signal: {payload.signal}
-    Price: {payload.price}
-    Timeframe: {payload.timeframe}
-    Score: {payload.score}
-    Comment: {payload.comment}
+
+    signal_text = f"""
+    TradingView Alert
+    Symbol: {data.get("symbol")}
+    Signal: {data.get("signal")}
+    Price: {data.get("price")}
+    Timeframe: {data.get("timeframe")}
+    Score: {data.get("score")}
+    Comment: {data.get("comment")}
     """
             }
         ]
