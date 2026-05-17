@@ -100,8 +100,10 @@ async def tradingview_webhook(request: Request) -> Dict[str, Any]:
 
 
 def build_prompt(alert: TradingViewAlert) -> str:
-    return f"""
+return f"""
 You are Eric's trading signal assistant.
+Analyze the TradingView alert and return a concise trading interpretation.
+"""
 
 This is a HELLO WORLD webhook test from TradingView.
 
